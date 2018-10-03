@@ -36,7 +36,7 @@ CATALINA_BASE=/usr/share/tomcat \
 CATALINA_HOME=/usr/share/tomcat \
 export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc 
 
-RUN source .bashrc
+RUN source ~/.bashrc
 
 RUN 
 RUN 
