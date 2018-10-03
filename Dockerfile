@@ -7,7 +7,7 @@ RUN yum -y update && yum clean all
 
 RUN yum install -y rpm wget curl
 
-RUN sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 
 #Install openssh
 
