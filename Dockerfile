@@ -38,7 +38,4 @@ export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc
 
 RUN source ~/.bashrc
 
-RUN 
-RUN 
-
 CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && grep 'temporary password' /var/log/mysqld.log 
