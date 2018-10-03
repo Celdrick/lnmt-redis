@@ -29,7 +29,7 @@ RUN yum install mysql-community-server
 
 #Install Nginx
 
-yum install -y nginx
+RUN yum install -y nginx
 
 RUN systemctl start nginx.service
 RUN systemctl enable nginx.service
