@@ -1,9 +1,57 @@
 FROM centos:7
 
-#BASIC CONFIG
-ENTRYPOINT /usr/sbin/init
-RUN yum -y update && yum clean all
-RUN yum install -y curl wget initscripts
 
-#Oneinstack
-RUN wget http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --tomcat_option 2 --jdk_option 2 --db_option 2 --dbinstallmethod 1 --dbrootpwd abcabc --redis
+#BASIC CONFIG
+
+RUN yum -y update && yum clean all
+
+RUN yum install -y rpm wget curl
+
+RUN sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+#Install openssh
+
+RUN yum install -y openssh-server
+
+RUN mkdir /root/.ssh
+
+COPY ./authorized_keys /root/.ssh/authorized_keys
+
+RUN sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+
+#Install MySQL
+
+RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
+
+RUN yum localinstall mysql57-community-release-el7-8.noarch.rpm
+
+RUN yum install mysql-community-server
+
+#Install Nginx
+
+yum install -y nginx
+
+RUN systemctl start nginx.service
+RUN systemctl enable nginx.service
+
+
+#Install JDK
+
+RUN yum -y install java-1.8.0-openjdk*
+
+#Install Tomcat
+
+RUN yum -y install tomcat
+
+RUN echo "JAVA_HOME=/usr/lib/jvm/java \
+PATH=$PATH:$JAVA_HOME/bin \
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar \
+CATALINA_BASE=/usr/share/tomcat \
+CATALINA_HOME=/usr/share/tomcat \
+export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc 
+
+RUN source .bashrc
+
+
+
+CMD systemctl enable mysqld && systemctl daemon-reload && systemctl start tomcat.service && grep 'temporary password' /var/log/mysqld.log 
