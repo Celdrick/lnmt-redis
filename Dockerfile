@@ -5,7 +5,7 @@ FROM centos:7
 
 RUN yum -y update && yum clean all
 
-RUN yum install -y rpm wget curl
+RUN yum install -y rpm wget curl initscripts
 
 RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 
@@ -38,4 +38,5 @@ export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc
 
 RUN source ~/.bashrc
 
-CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && grep 'temporary password' /var/log/mysqld.log 
+
+CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && pass=`grep 'temporary password' /var/log/mysqld.log | awk -F "localhost:" '{print$2}'` && mysqladmin -u root -p$pass password "test@123"
