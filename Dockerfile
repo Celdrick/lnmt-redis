@@ -15,7 +15,7 @@ RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
 
 RUN yum localinstall mysql57-community-release-el7-8.noarch.rpm
 
-RUN yum install mysql-community-server
+RUN yum install -y mysql-community-server
 
 #Install Nginx
 
