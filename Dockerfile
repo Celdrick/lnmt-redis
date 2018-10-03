@@ -21,10 +21,6 @@ RUN yum install -y mysql-community-server
 
 RUN yum install -y nginx
 
-RUN systemctl start nginx.service
-RUN systemctl enable nginx.service
-
-
 #Install JDK
 
 RUN yum -y install java-1.8.0-openjdk*
@@ -42,6 +38,7 @@ export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc
 
 RUN source .bashrc
 
+RUN 
+RUN 
 
-
-CMD systemctl enable mysqld && systemctl daemon-reload && systemctl start tomcat.service && grep 'temporary password' /var/log/mysqld.log 
+CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && grep 'temporary password' /var/log/mysqld.log 
