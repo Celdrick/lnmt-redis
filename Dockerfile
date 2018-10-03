@@ -13,7 +13,7 @@ RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos
 
 RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
 
-RUN yum localinstall mysql57-community-release-el7-8.noarch.rpm
+RUN yum localinstall -y mysql57-community-release-el7-8.noarch.rpm
 
 RUN yum install -y mysql-community-server
 
