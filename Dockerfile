@@ -29,6 +29,8 @@ RUN yum -y install java-1.8.0-openjdk*
 
 RUN yum -y install tomcat
 
+RUN yum install -y tomcat-webapps tomcat-admin-webapps
+
 RUN echo "JAVA_HOME=/usr/lib/jvm/java \
 PATH=$PATH:$JAVA_HOME/bin \
 CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar \
@@ -39,4 +41,4 @@ export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc
 RUN source ~/.bashrc
 
 
-CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && mysql -uroot -p -e "set password for 'root'@'localhost' = password('666');"
+CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && mysql -uroot -p -e "set password for 'root'@'localhost' = password('abcabc');"
