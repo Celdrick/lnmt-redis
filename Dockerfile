@@ -1,6 +1,7 @@
 FROM centos:7
 
 #BASIC CONFIG
+ENTRYPOINT /usr/sbin/init
 RUN yum -y update && yum clean all
 RUN yum install -y curl wget initscripts
 
