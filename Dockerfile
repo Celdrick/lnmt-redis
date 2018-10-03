@@ -11,9 +11,9 @@ RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos
 
 #Install MySQL
 
-RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
+RUN wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 
-RUN yum localinstall -y mysql57-community-release-el7-8.noarch.rpm
+RUN rpm -ivh mysql-community-release-el7-5.noarch.rpm
 
 RUN yum install -y mysql-community-server
 
@@ -39,4 +39,4 @@ export JAVA_HOME PATH CLASSPATH CATALINA_BASE CATALINA_HOME " >> ~/.bashrc
 RUN source ~/.bashrc
 
 
-CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service
+CMD systemctl start mysqld && systemctl enable mysqld && systemctl daemon-reload && systemctl start nginx.service && systemctl enable nginx.service && systemctl start tomcat.service && mysql -uroot -p -e "set password for 'root'@'localhost' = password('666');"
