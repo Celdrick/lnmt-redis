@@ -9,16 +9,6 @@ RUN yum install -y rpm wget curl
 
 RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 
-#Install openssh
-
-RUN yum install -y openssh-server
-
-RUN mkdir /root/.ssh
-
-COPY ./authorized_keys /root/.ssh/authorized_keys
-
-RUN sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-
 #Install MySQL
 
 RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
